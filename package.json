@@ -15,7 +15,8 @@
     "body-parser": "^1.15.1",
     "express": "^4.13.4",
     "mongoose": "^4.4.15",
-    "morgan": "^1.7.0"
+    "morgan": "^1.7.0",
+    "nodemon": "^1.19.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
