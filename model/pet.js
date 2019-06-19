@@ -3,7 +3,7 @@ let ListData = [
     {id: 2, name: 'Kitty02', status: 'available'},
     {id: 3, name: 'Kitty03', status: 'available'},
     {id: 4, name: 'Kitty04', status: 'available'},
-    {id: 5, name: 'Kitty05', status: 'available'}
+    {id: 99, name: 'Kitty05', status: 'available'}
 ];
 module.exports.find = (callback) => {
     callback(null, ListData);
