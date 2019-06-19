@@ -34,9 +34,18 @@ let postPet = (req, res) => {
  * GET /pets/:id route to retrieve the pet with given id
  */
 let getPet = (req, res) => {
-    Pet.findById(req.params.id, (err, pet) => {
+    Pet.findById(req.params.id, (pet, err) => {
         if(err) {
             res.send(err);
+            return;
+        }
+        if (pet == null) {
+            message_err = "pet not found";
+            msg = {
+                "status": false,
+                "msg" : message_err
+            }
+            res.send(msg);
             return;
         }
         res.send({
@@ -50,6 +59,15 @@ let getPet = (req, res) => {
  */
 let deletePet = (req, res) => {
     Pet.delete(req.params.id, (err, result) => {
+        if (result.roweffected == 0) {
+            message_err = "pet not found, delete error";
+            msg = {
+                "status": false,
+                "msg" : message_err
+            }
+            res.send(msg);
+            return;
+        }
         res.json({
             message: "Pet successfully deleted!",
             result
