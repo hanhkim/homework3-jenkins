@@ -3,10 +3,8 @@ let ListData = [
     {id: 2, name: 'Kitty02', status: 'available'},
     {id: 3, name: 'Kitty03', status: 'available'},
     {id: 4, name: 'Kitty04', status: 'available'},
-    {id: 5, name: 'Kitty05', status: 'available'},
-    {id: 6, name: 'Kitty06', status: 'available'},
-    {id: 7, name: 'Kitty07', status: 'available'},
-    {id: 11, name: 'Kitty10', status: 'available'}
+    {id: 5, name: 'Kitty05', status: 'available'}
+
 ];
 module.exports.find = (callback) => {
     callback(null, ListData);
@@ -15,13 +13,13 @@ module.exports.findById = (id, callback) => {
     callback(null, ListData.find(item => item.id == id)); // typeof id === "string"
 };
 module.exports.save = (pet, callback) => {
-    let {name, status} = pet;
+    let {id, name, status} = pet;
     if (!name || !status) {
         callback({message: "Pet is invalid!"});
         return;
     }
     pet = {
-        id: Date.now(),
+        id,
         name,
         status
     };
@@ -37,7 +35,19 @@ module.exports.delete = (id, callback) => {
 module.exports.update = (id, pet, callback) => {
     let oldPet = ListData.find(item => item.id == id);
     if (!oldPet) {
-        callback("Pet not found!");
+        mess = {
+            "status": false,
+            "message": "Pet not found!"
+        };
+        callback(mess);
+        return;
+    }
+    if (pet.id != id) {
+        mess = {
+            "status": false,
+            "message": "id not the same"
+        };
+        callback(mess);
         return;
     }
     let index = ListData.indexOf(oldPet);

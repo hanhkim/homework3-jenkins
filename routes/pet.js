@@ -1,5 +1,7 @@
 let Pet = require("../model/pet");
 
+let lengthPets;
+
 /*
  * GET /pets route to retrieve all the pets.
  */
@@ -18,11 +20,53 @@ let getPets = (req, res) => {
  */
 let postPet = (req, res) => {
     let pet = req.body;
+    let id = parseInt(req.body.id);
+
+    if (isNaN(id)) {
+        msg = {
+            "status": false,
+            "msg" : "id must be a number"
+        }
+        res.send(msg)
+        return
+    }
+    //if (req.body.id)
+
+    Pet.find((err, pets) => {
+        if (err) {
+            res.send(err);
+            return;
+        }
+        console.log(pets.length)
+        if (pets.length >= 10) {
+            msg = {
+                "status": false,
+                "msg" : "The number of pets should be less than or equal 10"
+            }
+            res.send(msg)
+            return
+        }
+    });
+
+    Pet.findById(req.body.id, (err, pet) => {
+     
+        if (pet != null) {
+            message_err = "id exists";
+            msg = {
+                "status": false,
+                "msg" : message_err
+            }
+            res.send(msg);
+            return;
+        }
+    })
+
     Pet.save(pet, (err, newPet) => {
         if(err) {
             res.send(err);
             return;
         }
+
         res.send({
             message: "Pet successfully added!",
             pet: newPet
