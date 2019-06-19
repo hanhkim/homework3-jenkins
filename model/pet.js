@@ -2,7 +2,8 @@ let ListData = [
     {id: 1, name: 'Kitty01', status: 'available'},
     {id: 2, name: 'Kitty02', status: 'available'},
     {id: 3, name: 'Kitty03', status: 'available'},
-    {id: 4, name: 'Kitty04', status: 'available'}
+    {id: 4, name: 'Kitty04', status: 'available'},
+    {id: 5, name: 'Kitty05', status: 'available'}
 ];
 module.exports.find = (callback) => {
     callback(null, ListData);
@@ -11,16 +12,11 @@ module.exports.findById = (id, callback) => {
     callback(null, ListData.find(item => item.id == id)); // typeof id === "string"
 };
 module.exports.save = (pet, callback) => {
-    let {id, name, status} = pet;
     if (!name || !status) {
         callback({message: "Pet is invalid!"});
         return;
     }
-    pet = {
-        id,
-        name,
-        status
-    };
+
     ListData.push(pet);
     callback(null, pet);
 };
