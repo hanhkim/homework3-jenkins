@@ -36,6 +36,7 @@ describe('Pets', () => {
     describe('/POST pets', () => {
         it('it should POST a pet', (done) => {
             let pet = {
+                id: 100,
                 name: "Bug",
                 status: "detected"
             };

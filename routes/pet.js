@@ -21,7 +21,6 @@ let getPets = (req, res) => {
 let postPet = (req, res) => {
     let pet = req.body;
     let id = parseInt(req.body.id);
-
     if (isNaN(id)) {
         msg = {
             "status": false,
@@ -49,7 +48,6 @@ let postPet = (req, res) => {
     });
 
     Pet.findById(req.body.id, (err, pet) => {
-     
         if (pet != null) {
             message_err = "id exists";
             msg = {
@@ -60,13 +58,11 @@ let postPet = (req, res) => {
             return;
         }
     })
-
     Pet.save(pet, (err, newPet) => {
         if(err) {
             res.send(err);
             return;
         }
-
         res.send({
             message: "Pet successfully added!",
             pet: newPet
