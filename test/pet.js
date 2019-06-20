@@ -18,13 +18,13 @@ describe('Pets', () => {
      * Test the /GET route
      */
     describe('/GET pets', () => {
-        it('The number of pets should be 9', (done) => {
+        it('The number of pets should be 5', (done) => {
             chai.request(server)
                 .get('/pets')
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
-                    res.body.length.should.be.eql(9);
+                    res.body.length.should.be.eql(5);
                     done();
                 });
         });
